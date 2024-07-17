@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:personal_expense_tracker/presentation/colors.dart';
+import 'package:personal_expense_tracker/presentation/controllers/home_controller.dart';
 
 class AmountContainer extends StatelessWidget {
-  const AmountContainer({super.key});
+  const AmountContainer({super.key, required this.index});
+  final int index;
 
   @override
   Widget build(BuildContext context) {
+    final HomeController controller = Get.put(HomeController());
     var screeenSize = MediaQuery.of(context).size;
     var width = screeenSize.width;
     var height = screeenSize.height;
@@ -30,9 +34,9 @@ class AmountContainer extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     constraints: const BoxConstraints(maxWidth: 300),
-                    child: const Text(
-                      "health",
-                      style: TextStyle(color: AppColors.white),
+                    child: Text(
+                      controller.expenses[index].title,
+                      style: const TextStyle(color: AppColors.white),
                       softWrap: true,
                     ),
                   ),
@@ -49,9 +53,9 @@ class AmountContainer extends StatelessWidget {
                     padding: const EdgeInsets.only(
                         left: 8, right: 8, top: 2, bottom: 2),
                     constraints: const BoxConstraints(maxWidth: 300),
-                    child: const Text(
-                      "this text ",
-                      style: TextStyle(
+                    child: Text(
+                      controller.expenses[index].description,
+                      style: const TextStyle(
                         color: AppColors.black,
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
@@ -83,9 +87,9 @@ class AmountContainer extends StatelessWidget {
                     padding: const EdgeInsets.only(
                         left: 8, right: 8, top: 2, bottom: 2),
                     constraints: const BoxConstraints(maxWidth: 300),
-                    child: const Text(
-                      "200.00 INR",
-                      style: TextStyle(
+                    child: Text(
+                      "${controller.expenses[index].amount}.00 INR",
+                      style: const TextStyle(
                         color: AppColors.black,
                         fontSize: 25,
                         fontWeight: FontWeight.w600,

@@ -17,10 +17,20 @@ class HiveExpenseRepository implements ExpenseRepository {
       description: expense.description,
       amount: expense.amount,
     );
-    print("---------- before -------------");
-    print("before == ${_expenseBox.length}");
+
     await _expenseBox.add(expenseModel);
-    print("---------- after -------------");
-    print("after == ${_expenseBox.length}");
+  }
+
+  @override
+  Future<List<Expense>> getAllExpense() async {
+    final expenses = _expenseBox.values.map((expenseModel) {
+      return Expense(
+        title: expenseModel.title,
+        description: expenseModel.description,
+        amount: expenseModel.amount,
+      );
+    }).toList();
+
+    return expenses;
   }
 }

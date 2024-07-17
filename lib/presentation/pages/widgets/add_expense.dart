@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 import 'package:personal_expense_tracker/presentation/colors.dart';
 import 'package:personal_expense_tracker/presentation/controllers/home_controller.dart';
 

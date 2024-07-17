@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:personal_expense_tracker/presentation/colors.dart';
+import 'package:personal_expense_tracker/presentation/controllers/home_controller.dart';
 import 'package:personal_expense_tracker/presentation/pages/widgets/add_expense.dart';
 import 'package:personal_expense_tracker/presentation/pages/widgets/amount_container.dart';
 
@@ -12,13 +14,22 @@ class HomePage extends StatelessWidget {
     var width = screeenSize.width;
     var height = screeenSize.height;
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.separated(
-          itemBuilder: (context, index) => const AmountContainer(),
-          separatorBuilder: (context, index) => const Divider(),
-          itemCount: 10,
-        ),
+      body: GetBuilder(
+        init: HomeController(),
+        builder: (controller) {
+          return Obx(
+            () => controller.loading.isTrue
+                ? CircularProgressIndicator()
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.separated(
+                      itemBuilder: (context, index) => AmountContainer(index: index),
+                      separatorBuilder: (context, index) => const Divider(),
+                      itemCount: controller.expenses.length,
+                    ),
+                  ),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
