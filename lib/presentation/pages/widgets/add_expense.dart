@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 import 'package:personal_expense_tracker/presentation/colors.dart';
+import 'package:personal_expense_tracker/presentation/controllers/home_controller.dart';
 
 void showAddExpenseBottomSheet(BuildContext context) {
   final anFormKey = GlobalKey<FormState>();
@@ -10,6 +13,7 @@ void showAddExpenseBottomSheet(BuildContext context) {
   showModalBottomSheet<void>(
     context: context,
     builder: (BuildContext context) {
+      final HomeController controller = Get.put(HomeController());
       var screeenSize = MediaQuery.of(context).size;
       var width = screeenSize.width;
       var height = screeenSize.height;
@@ -29,8 +33,18 @@ void showAddExpenseBottomSheet(BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(
-                    height: height * 0.010,
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: const Icon(
+                        Icons.close,
+                        color: AppColors.black,
+                        size: 25.0,
+                      ),
+                    ),
                   ),
                   const DefaultTextStyle(
                     style: TextStyle(
@@ -128,7 +142,17 @@ void showAddExpenseBottomSheet(BuildContext context) {
                     alignment: Alignment.centerRight,
                     child: InkWell(
                       onTap: () {
-                        Navigator.pop(context);
+                        if (anFormKey.currentState!.validate()) {
+                          controller.addExpense(
+                            titleController.text,
+                            descriptionController.text,
+                            amountController.text,
+                          );
+                          Get.back();
+                          titleController.clear();
+                          descriptionController.clear();
+                          amountController.clear();
+                        }
                       },
                       child: Container(
                         height: height * 0.05,
