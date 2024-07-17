@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personal_expense_tracker/presentation/asset.dart';
 import 'package:personal_expense_tracker/presentation/colors.dart';
 import 'package:personal_expense_tracker/presentation/controllers/home_controller.dart';
 import 'package:personal_expense_tracker/presentation/pages/widgets/add_expense.dart';
@@ -29,17 +30,32 @@ class HomePage extends StatelessWidget {
         init: HomeController(),
         builder: (controller) {
           return Obx(
-            () => controller.loading.isTrue
-                ? const CircularProgressIndicator()
-                : Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListView.separated(
-                      itemBuilder: (context, index) =>
-                          AmountContainer(index: index),
-                      separatorBuilder: (context, index) => const Divider(),
-                      itemCount: controller.expenses.length,
-                    ),
+            () {
+              if (controller.expenses.isEmpty) {
+                print("no data found");
+                return const Center(
+                  child: Image(
+                    image: AssetImage(Asset.no_data_img),
+                    fit: BoxFit.cover,
                   ),
+                );
+              }
+
+              if (controller.loading.isTrue) {
+                
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.separated(
+                  itemBuilder: (context, index) =>
+                      AmountContainer(index: index),
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemCount: controller.expenses.length,
+                ),
+              );
+            },
           );
         },
       ),
