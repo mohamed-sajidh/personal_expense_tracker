@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -9,6 +7,5 @@ class AppColors {
   static const white = Colors.white;
   static const edit_color = Color.fromARGB(255, 36, 77, 113);
   static const delete_color = Colors.red;
-  
-
+  static const textfieldColor = Color(0x40D9D9D9);
 }

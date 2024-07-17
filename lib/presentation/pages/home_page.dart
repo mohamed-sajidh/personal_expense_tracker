@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_expense_tracker/presentation/colors.dart';
+import 'package:personal_expense_tracker/presentation/pages/widgets/add_expense.dart';
 import 'package:personal_expense_tracker/presentation/pages/widgets/amount_container.dart';
 
 class HomePage extends StatelessWidget {
@@ -19,32 +20,31 @@ class HomePage extends StatelessWidget {
           itemCount: 10,
         ),
       ),
-
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Handle onPressed
+          showAddExpenseBottomSheet(context);
         },
-        child: Icon(Icons.add),
         backgroundColor: AppColors.category_container_color,
         foregroundColor: AppColors.white,
         elevation: 2.0,
         shape: const CircleBorder(),
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-              icon: Icon(Icons.home),
+              icon: const Icon(Icons.home),
               onPressed: () {
                 // Handle tap on first item
               },
             ),
             IconButton(
-              icon: Icon(Icons.settings),
+              icon: const Icon(Icons.settings),
               onPressed: () {
                 // Handle tap on second item
               },
@@ -52,20 +52,6 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-
-      // bottomNavigationBar: BottomNavigationBar(
-      //     items: const <BottomNavigationBarItem>[
-      //       BottomNavigationBarItem(
-      //         icon: Icon(Icons.home),
-      //         label: 'Home',
-      //       ),
-      //       BottomNavigationBarItem(
-      //         icon: Icon(Icons.circle, color: Colors.white,),
-      //         label: '',
-      //       ),
-      //     ],
-      //     selectedItemColor: Colors.blue,
-      //   ),
     );
   }
 }
