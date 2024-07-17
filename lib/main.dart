@@ -6,6 +6,7 @@ import 'package:personal_expense_tracker/data/models/expense_model.dart';
 import 'package:personal_expense_tracker/data/repositories/expense_repository.dart';
 import 'package:personal_expense_tracker/domain/usecases/add_expense_usecases.dart';
 import 'package:personal_expense_tracker/domain/usecases/get_all_expenses_usecases.dart';
+import 'package:personal_expense_tracker/domain/usecases/update_expense_usecases.dart';
 import 'package:personal_expense_tracker/presentation/controllers/home_controller.dart';
 import 'package:personal_expense_tracker/presentation/pages/home_page.dart';
 
@@ -26,6 +27,7 @@ void main() async {
     final userRepository = HiveExpenseRepository();
     Get.put(AddExpenseUsecases(userRepository));
     Get.put(GetAllExpensesUsecases(userRepository));
+    Get.put(UpdateExpenseUsecases(userRepository));
     print("Dependencies set up successfully.");
   } catch (e) {
     print("Error setting up dependencies: $e");

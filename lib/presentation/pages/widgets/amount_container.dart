@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personal_expense_tracker/presentation/colors.dart';
 import 'package:personal_expense_tracker/presentation/controllers/home_controller.dart';
+import 'package:personal_expense_tracker/presentation/pages/widgets/showEditPopup.dart';
 
 class AmountContainer extends StatelessWidget {
   const AmountContainer({super.key, required this.index});
@@ -65,8 +66,10 @@ class AmountContainer extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      // Get.back();
-                      print("button pressed");
+                      showEditPopup(
+                        context,
+                        index,
+                      );
                     },
                     icon: const Icon(
                       Icons.edit,

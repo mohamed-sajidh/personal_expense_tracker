@@ -33,4 +33,14 @@ class HiveExpenseRepository implements ExpenseRepository {
 
     return expenses;
   }
+
+  @override
+  Future<void> updateExpense(dynamic index, Expense expense) async {
+    final expenseModel = ExpenseModel(
+      title: expense.title,
+      description: expense.description,
+      amount: expense.amount,
+    );
+    await _expenseBox.putAt(index, expenseModel);
+  }
 }

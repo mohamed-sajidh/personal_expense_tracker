@@ -42,4 +42,15 @@ class HomeController extends GetxController {
     await _expenseRepository.saveExpense(newExpense);
     getAllExpense();
   }
+
+  void updateExpense(dynamic index, String title, String description, String amount) async {
+    final newExpense = Expense(
+      title: title,
+      description: description,
+      amount: amount,
+    );
+
+    await _expenseRepository.updateExpense(index, newExpense);
+    getAllExpense();
+  }
 }
