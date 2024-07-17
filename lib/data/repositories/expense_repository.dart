@@ -43,4 +43,9 @@ class HiveExpenseRepository implements ExpenseRepository {
     );
     await _expenseBox.putAt(index, expenseModel);
   }
+
+  @override
+  Future<void> deleteExpense(dynamic index) async {
+    await _expenseBox.deleteAt(index);
+  }
 }

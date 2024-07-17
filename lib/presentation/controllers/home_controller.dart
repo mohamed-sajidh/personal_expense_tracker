@@ -53,4 +53,9 @@ class HomeController extends GetxController {
     await _expenseRepository.updateExpense(index, newExpense);
     getAllExpense();
   }
+
+  void deleteExpense(dynamic index) async {
+    await _expenseRepository.deleteExpense(index);
+    getAllExpense();
+  }
 }

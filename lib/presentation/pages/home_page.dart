@@ -14,16 +14,28 @@ class HomePage extends StatelessWidget {
     var width = screeenSize.width;
     var height = screeenSize.height;
     return Scaffold(
+      appBar: AppBar(
+        title: const Center(
+          child: Text(
+            'Personal Expense Tracker',
+            style: TextStyle(
+              color: AppColors.black,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ),
       body: GetBuilder(
         init: HomeController(),
         builder: (controller) {
           return Obx(
             () => controller.loading.isTrue
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ListView.separated(
-                      itemBuilder: (context, index) => AmountContainer(index: index),
+                      itemBuilder: (context, index) =>
+                          AmountContainer(index: index),
                       separatorBuilder: (context, index) => const Divider(),
                       itemCount: controller.expenses.length,
                     ),

@@ -5,6 +5,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:personal_expense_tracker/data/models/expense_model.dart';
 import 'package:personal_expense_tracker/data/repositories/expense_repository.dart';
 import 'package:personal_expense_tracker/domain/usecases/add_expense_usecases.dart';
+import 'package:personal_expense_tracker/domain/usecases/delete_expense_usecases.dart';
 import 'package:personal_expense_tracker/domain/usecases/get_all_expenses_usecases.dart';
 import 'package:personal_expense_tracker/domain/usecases/update_expense_usecases.dart';
 import 'package:personal_expense_tracker/presentation/controllers/home_controller.dart';
@@ -28,6 +29,7 @@ void main() async {
     Get.put(AddExpenseUsecases(userRepository));
     Get.put(GetAllExpensesUsecases(userRepository));
     Get.put(UpdateExpenseUsecases(userRepository));
+    Get.put(DeleteExpenseUsecases(userRepository));
     print("Dependencies set up successfully.");
   } catch (e) {
     print("Error setting up dependencies: $e");

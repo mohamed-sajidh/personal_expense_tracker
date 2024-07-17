@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personal_expense_tracker/presentation/colors.dart';
 import 'package:personal_expense_tracker/presentation/controllers/home_controller.dart';
+import 'package:personal_expense_tracker/presentation/pages/widgets/showDeletePopup.dart';
 import 'package:personal_expense_tracker/presentation/pages/widgets/showEditPopup.dart';
 
 class AmountContainer extends StatelessWidget {
@@ -102,8 +103,10 @@ class AmountContainer extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      // Get.back();
-                      print("button pressed");
+                      showDeletePopup(
+                        context,
+                        index,
+                      );
                     },
                     icon: const Icon(
                       Icons.delete,
