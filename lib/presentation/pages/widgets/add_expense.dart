@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personal_expense_tracker/presentation/colors.dart';
 import 'package:personal_expense_tracker/presentation/controllers/home_controller.dart';
+import 'package:personal_expense_tracker/presentation/notifications.dart';
 
 void showAddExpenseBottomSheet(BuildContext context) {
   final anFormKey = GlobalKey<FormState>();
@@ -146,6 +147,12 @@ void showAddExpenseBottomSheet(BuildContext context) {
                             titleController.text,
                             descriptionController.text,
                             amountController.text,
+                          );
+                          LocalNotifications.showSimpleNotification(
+                            title: "Successfully added the Expense",
+                            body:
+                                "Successfully added ${amountController.text} rupees",
+                            payload: "This is a simple data",
                           );
                           Get.back();
                           titleController.clear();
