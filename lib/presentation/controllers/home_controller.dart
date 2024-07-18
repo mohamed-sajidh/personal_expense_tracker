@@ -12,20 +12,23 @@ import 'package:personal_expense_tracker/presentation/notifications.dart';
 
 class HomeController extends GetxController {
   final ExpenseRepository _expenseRepository = HiveExpenseRepository();
-  final Box<ExpenseModel> _expenseBox = Hive.box<ExpenseModel>('expense');
 
   var expenses = <Expense>[].obs;
   var expense = Rxn<Expense>();
   final RxBool loading = RxBool(false);
+  int total = 0;
+  String totalAmount = '';
 
   @override
   void onInit() {
+    total = 0;
     getAllExpense();
     LocalNotifications.showPeriodicNotifications(
       title: "Add your daily expense",
-      body: "Add your daily expense",
+      body: "You have missed to add your daily expense.",
       payload: "This is a simple data",
     );
+    update();
     super.onInit();
   }
 
@@ -33,13 +36,21 @@ class HomeController extends GetxController {
     try {
       loading(true);
       expenses.value = await _expenseRepository.getAllExpense();
-      print(expenses.value);
+
+      for (var i = 0; i < expenses.length; i++) {
+        total = int.parse(expenses[i].amount) + total;
+      }
+
+      totalAmount = total.toString();
+      update();
     } catch (e) {
       print(e);
     } finally {
       loading(false);
     }
   }
+
+  
 
   void addExpense(String title, String description, String amount) async {
     final newExpense = Expense(
@@ -48,22 +59,7 @@ class HomeController extends GetxController {
       amount: amount,
     );
     await _expenseRepository.saveExpense(newExpense);
-    getAllExpense();
-  }
-
-  void addExpenseWithDate(
-      String title, String description, String amount) async {
-    final newExpense = Expense(
-      title: title,
-      description: description,
-      amount: amount,
-    );
-
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
-    print('Formatted Date: $formattedDate');
-
-    // await _expenseBox.add(newExpense);
+    onInit();
   }
 
   void updateExpense(
@@ -75,11 +71,11 @@ class HomeController extends GetxController {
     );
 
     await _expenseRepository.updateExpense(index, newExpense);
-    getAllExpense();
+    onInit();
   }
 
   void deleteExpense(dynamic index) async {
     await _expenseRepository.deleteExpense(index);
-    getAllExpense();
+    onInit();
   }
 }

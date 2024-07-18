@@ -7,23 +7,49 @@ import 'package:personal_expense_tracker/presentation/pages/widgets/add_expense.
 import 'package:personal_expense_tracker/presentation/pages/widgets/amount_container.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+   HomePage({super.key});
+  final HomeController homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
+    // ignore: non_constant_identifier_names
     var screeenSize = MediaQuery.of(context).size;
     var width = screeenSize.width;
     var height = screeenSize.height;
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Personal Expense Tracker',
-            style: TextStyle(
-              color: AppColors.black,
-              fontWeight: FontWeight.w600,
+        // title: const Center(
+        //   child: Text(
+        //     'Personal Expense Tracker',
+        //     style: TextStyle(
+        //       color: AppColors.black,
+        //       fontWeight: FontWeight.w600,
+        //     ),
+        //   ),
+        // ),
+
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Personal Expense Tracker',
+              style: TextStyle(
+                color: AppColors.black,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
+            GetBuilder<HomeController>(
+              builder: (homeController) {
+                return Text(
+                  '${homeController.totalAmount}.00',
+                  style: const TextStyle(
+                    color: AppColors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
+                );
+              }
+            ),
+          ],
         ),
       ),
       body: GetBuilder(
@@ -42,7 +68,6 @@ class HomePage extends StatelessWidget {
               }
 
               if (controller.loading.isTrue) {
-                
                 return const Center(child: CircularProgressIndicator());
               }
 
